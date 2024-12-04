@@ -19,8 +19,8 @@ function getResponse(data) {
         response = {
             status: status,
             totalCount: totalCount,
-            data: myData
-        }
+            data: myData,
+        };
     }
     return response;
 }
@@ -42,6 +42,10 @@ function overrideDB(pathDB, data, replacer, space) {
 function filterData(req, list) {
     const query = req.query;
     const keyTarget = Object.keys(query)[0];
+    // lista non definita oppure lista vuota
+    if (!list || !list.length) {
+        return null;
+    }
     // query string vuota
     if (!Object.keys(query).length) {
         return list;
@@ -76,7 +80,7 @@ function filterData(req, list) {
 
 function filterStrict(key, queryValues, data) {
     const arrFiltered = data.filter((obj) => {
-        // per ogni obj dell array di dati, crea un array ordinato dei values della key target 
+        // per ogni obj dell array di dati, crea un array ordinato dei values della key target
         let dataTargetArr = convertToSortedArr(obj[key]);
         // elementi array convertiti in stringhe lowercase
         dataTargetArr = convertElementsToStrLCase(dataTargetArr);
