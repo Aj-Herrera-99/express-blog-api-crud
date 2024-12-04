@@ -1,11 +1,11 @@
 const { writeFile } = require("fs");
 
 function getDataIndexById(idTarget, data) {
-    return data.findIndex((obj) => obj.id == idTarget);
+    return data?.findIndex((obj) => obj.id == idTarget);
 }
 
 function getDataById(idTarget, data) {
-    return data.find((obj) => obj.id == idTarget);
+    return data?.find((obj) => obj.id == idTarget);
 }
 
 function getResponse(data) {
@@ -79,7 +79,7 @@ function filterData(req, list) {
 }
 
 function filterStrict(key, queryValues, data) {
-    const arrFiltered = data.filter((obj) => {
+    const arrFiltered = data?.filter((obj) => {
         // per ogni obj dell array di dati, crea un array ordinato dei values della key target
         let dataTargetArr = convertToSortedArr(obj[key]);
         // elementi array convertiti in stringhe lowercase
@@ -95,7 +95,7 @@ function filterStrict(key, queryValues, data) {
 }
 
 function filterLight(key, queryValues, data) {
-    const arrFiltered = data.filter((obj) => {
+    const arrFiltered = data?.filter((obj) => {
         let dataTargetArr = convertToSortedArr(obj[key]);
         dataTargetArr = convertElementsToStrLCase(dataTargetArr);
         // se anche SOLO UN valore della query è incluso tra i valori di un elemento dell'array
@@ -109,7 +109,7 @@ function filterLight(key, queryValues, data) {
 }
 
 function convertElementsToStrLCase(arr) {
-    return arr.map((el) => el.toString().toLowerCase());
+    return arr?.map((el) => el.toString().toLowerCase());
 }
 
 function convertToSortedArr(element) {

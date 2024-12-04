@@ -5,4 +5,4 @@ PORT= #port
 HOST= localhost + port
 
 #api doc
-query string add "filter=strict" for strict filtering
+endpoint "/posts" query string add "filter=strict" for strict filtering

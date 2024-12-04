@@ -1,5 +1,6 @@
 const posts = require("../data/posts.json"); // automatic parsing
 const utils = require("../utils/utils");
+
 // index
 function index(req, res) {
     const dataFiltered = utils.filterData(req, posts);
