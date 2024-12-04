@@ -18,11 +18,9 @@ export function focusNote(target) {
 }
 
 export function removeNote(target) {
-    const indexElRemove = glob.dataSaved.findIndex(
-        (el) =>
-            el.albumId == target.getAttribute("albumid") && el.id == target.id
-    );
+    const indexElRemove = glob.dataSaved.findIndex((el) => el.id == target.id);
     if (indexElRemove !== -1) {
+        console.log("test");
         glob.dataSaved.splice(indexElRemove, 1);
     }
     console.log(glob.dataSaved);

@@ -2,8 +2,6 @@ import { _MAX_OBJECTS } from "../config/globals.js";
 
 export async function getData(completeUrl, params, saving) {
     try {
-        console.log(completeUrl);
-        console.log(params);
         const res = await axios.get(completeUrl, { params });
         if (res.data.length > _MAX_OBJECTS) {
             throw new Error(

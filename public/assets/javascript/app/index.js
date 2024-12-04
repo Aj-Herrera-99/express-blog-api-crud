@@ -14,7 +14,6 @@ let modalMode = false;
 // Caricamento elementi starter della pagina
 (async function () {
     // dati presi da una chiamata ajax
-
     let myData = await api.getData(
         glob._URL + glob._RESOURCE,
         glob._PARAMS,
