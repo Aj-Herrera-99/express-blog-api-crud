@@ -13,7 +13,6 @@ function getResponse(data) {
         status: 404,
     };
     if (data) {
-        console.log("test");
         response.status = 200;
         response.data = [].concat(data);
         response.totalCount = response.data.length;

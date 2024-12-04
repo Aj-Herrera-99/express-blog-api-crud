@@ -1,4 +1,4 @@
-const posts = require("../db/posts.json"); // automatic parsing
+const posts = require("../data/posts.json"); // automatic parsing
 const utils = require("../utils/utils");
 // index
 function index(req, res) {
@@ -39,7 +39,9 @@ function destroy(req, res) {
     const response = utils.getResponse(posts[indexTarget]);
     if (indexTarget !== -1) {
         posts.splice(indexTarget, 1);
-        utils.overrideDB("db/posts.json", posts, null, 4);
+        console.log(posts);
+        //! decommentare solo per vedere che il db di posts si cancella effettivamente
+        // utils.overrideDB("data/posts.json", posts, null, 4);
     }
     response.status == 404 ? res.sendStatus(404) : res.sendStatus(204);
 }
