@@ -1,0 +1,243 @@
+/* resets */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+
+:root {
+    --header-height: 100px;
+    --note-margin-inline: 10px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    font-family: "Edu TAS Beginner", cursive;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    background-image: url("../img/cork.png");
+    background-position: center;
+    background-size: contain;
+    font-size: large;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-image: url("../img/wall.png");
+    background-position: center;
+    background-size: contain;
+    z-index: 100;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 3.5rem;
+}
+
+main {
+    margin-top: var(--header-height);
+    min-height: calc(100% - var(--header-height));
+    padding: 80px;
+}
+
+.note {
+    background: #ffffff;
+    /* 20px = 10px + 10px di .note margin */
+    width: calc(100% - 20px);
+    aspect-ratio: 7/9;
+    margin-inline: var(--note-margin-inline);
+    margin-block: 15px;
+    padding: 13px;
+    padding-bottom: 0;
+    font-size: 1.1rem;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    scale: 0.99;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.hover-on .note:hover {
+    box-shadow: 3px 3px 30px rgb(0, 0, 0);
+    scale: 1.1;
+    translate: 10px -10px;
+    rotate: 5deg;
+    z-index: 50;
+}
+
+.hover-on .note:hover .pin {
+    opacity: 0;
+}
+
+.pin {
+    width: 15%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+}
+
+.note img:not(.pin img) {
+    width: 100%;
+    background: black;
+    aspect-ratio: 7/8;
+    border-radius: 3px;
+}
+
+.note figcaption {
+    width: 100%;
+    margin-block: 10px;
+    /* css tricks */
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.note figcaption::first-letter {
+    text-transform: capitalize;
+}
+
+/** TRIGGERS */
+.layover::after {
+    content: "";
+    position: fixed;
+    background: #0000007c;
+    inset: 0;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+}
+
+.hover-on .modal:hover {
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    scale: 0.99;
+    translate: initial;
+    rotate: initial;
+    z-index: 10000;
+}
+
+.constant-tilt-shake {
+    animation: tilt-shaking 2s infinite;
+}
+
+/************  MEDIA QUERIES  **********************  */
+@media screen and (min-width: 400px) {
+    h1 {
+        font-size: 4rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .notes-wrapper {
+        max-width: 80%;
+    }
+
+    .note {
+        /* 40px = 10px + 10px + 10px + 10px di .box margin */
+        width: calc((100% - (4 * var(--note-margin-inline))) / 2);
+        font-size: 1.3rem;
+        margin-block: 20px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .notes-wrapper {
+        max-width: 850px;
+    }
+
+    .note {
+        /* 60px = (10px * 6) di .box margin */
+        width: calc((100% - (6 * var(--note-margin-inline))) / 3);
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .modal {
+        width: 60vw;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .modal {
+        width: 25vw;
+    }
+}
+@media screen and (max-width: 1200px) and (orientation: landscape) {
+    .modal {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+    header {
+        position: absolute;
+    }
+
+    .notes-wrapper {
+        width: 70%;
+    }
+
+    .modal {
+        top: 45%;
+        width: 25vw;
+    }
+}
+
+/**************** ANIMATIONS  ************************/
+@keyframes tilt-shaking {
+    0%,
+    4%,
+    8%,
+    12%,
+    16%,
+    20%,
+    80%,
+    84%,
+    88%,
+    92%,
+    96%,
+    100% {
+        transform: rotate(0deg);
+    }
+    2%,
+    6%,
+    10%,
+    14%,
+    18%,
+    82%,
+    86%,
+    90%,
+    94%,
+    98% {
+        transform: rotate(1deg);
+    }
+}

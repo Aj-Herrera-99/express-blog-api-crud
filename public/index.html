@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Vina+Sans&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/axios@latest/dist/axios.min.js"></script>
+        <script type="module" src="./assets/javascript/app/index.js"></script>
+        <script
+            src="./assets/javascript/app/mediaquery.js"
+            defer
+        ></script>
+        <link rel="stylesheet" href="./assets/css/utilities.css" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+        <link rel="stylesheet" href="./assets/css/loader.css" />
+        <link rel="stylesheet" href="./assets/css/button.css" />
+        <title>Photo Blog</title>
+    </head>
+
+    <body class="layover">
+        <!-- HEADER -->
+        <header class="d-flex content-center items-center">
+            <h1>estate '24</h1>
+        </header>
+        <!-- MAIN -->
+        <main class="d-flex content-center items-center">
+            <div class="notes-wrapper d-flex flex-wrap">
+                <!-- figure note dynamic  -->
+            </div>
+            <div class="add-remove-wrapper d-flex flex-col">
+                <!-- ADD NOTE BUTTON -->
+                <button id="add-btn">Aggiungi una polaroid!</button>
+                <!-- ESCAPE REMOVE MODE BUTTON -->
+                <button id="escape-remove-btn" class="d-none">Ho finito!</button>
+                <!-- REMOVE NOTE BUTTON -->
+                <button id="remove-btn">Rimuovi una polaroid!</button>
+            </div>
+        </main>
+        <!-- ESCAPE BUTTON -->
+        <button id="popup-modal-btn" class="">
+            Premi ESC o clicca sulla polaroid per uscire
+        </button>
+        <!-- LOADER -->
+        <div class="loader active"></div>
+    </body>
+</html>
