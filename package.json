@@ -1,16 +1,16 @@
 {
-  "name": "express-blog-routing",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node --env-file=.env index.js",
-    "dev": "node --env-file=.env --watch index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "express": "^4.21.1"
-  }
+    "name": "express-blog-routing",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "node --watch index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "express": "^4.21.1"
+    }
 }
