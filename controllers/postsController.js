@@ -3,7 +3,6 @@ const utils = require("../utils/utils");
 // index
 function index(req, res) {
     const dataFiltered = utils.filterData(req, posts);
-    console.log(dataFiltered);
     const response = utils.getResponse(dataFiltered);
     console.log(response);
     response.status == 404 ? res.sendStatus(404) : res.json(response);
@@ -12,7 +11,6 @@ function index(req, res) {
 // show
 function show(req, res) {
     const postTarget = utils.getDataById(req.params.id, posts);
-    console.log(postTarget);
     const response = utils.getResponse(postTarget);
     console.log(response);
     response.status == 404 ? res.sendStatus(404) : res.json(response);

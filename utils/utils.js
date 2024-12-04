@@ -13,9 +13,14 @@ function getResponse(data) {
         status: 404,
     };
     if (data) {
-        response.status = 200;
-        response.data = [].concat(data);
-        response.totalCount = response.data.length;
+        const status = 200;
+        const myData = [].concat(data);
+        const totalCount = myData.length;
+        response = {
+            status: status,
+            totalCount: totalCount,
+            data: myData
+        }
     }
     return response;
 }
@@ -43,16 +48,19 @@ function filterData(req, list) {
     }
     // param query string non valida
     if (!Object.keys(list[0]).includes(keyTarget)) {
-        return list;
+        return null;
     }
     // key param query string = id
     if (keyTarget === "id") {
         const objTarget = getDataById(query[keyTarget], list);
         return objTarget;
     }
-    // key param query string != id MA valida
+    // da qui in poi -> key param query string != id MA valida
+    // array ordinato dei valori del primo param di query string
     let queryValuesArr = convertToSortedArr(query[keyTarget]);
+    // elementi array convertiti in stringhe lowercase
     queryValuesArr = convertElementsToStrLCase(queryValuesArr);
+    // inizializzazione dati filtrati (default zero)
     let arrFiltered = [];
     // filtraggio "pesante"
     if (query["filter"] === "strict") {
@@ -62,13 +70,18 @@ function filterData(req, list) {
     else {
         arrFiltered = filterLight(keyTarget, queryValuesArr, list);
     }
+    // se la ricerca ha prodotto zero risultati ritorna null
     return arrFiltered.length ? arrFiltered : null;
 }
 
 function filterStrict(key, queryValues, data) {
     const arrFiltered = data.filter((obj) => {
+        // per ogni obj dell array di dati, crea un array ordinato dei values della key target 
         let dataTargetArr = convertToSortedArr(obj[key]);
+        // elementi array convertiti in stringhe lowercase
         dataTargetArr = convertElementsToStrLCase(dataTargetArr);
+        // se OGNI valore di un elemmnto dell'array è inclusa tra i valori della query
+        // ritorna true e l'obj viene pushato nell'array filtrato
         let isIncludedAll = dataTargetArr.every((val) => {
             return queryValues.includes(val);
         });
@@ -81,6 +94,8 @@ function filterLight(key, queryValues, data) {
     const arrFiltered = data.filter((obj) => {
         let dataTargetArr = convertToSortedArr(obj[key]);
         dataTargetArr = convertElementsToStrLCase(dataTargetArr);
+        // se anche SOLO UN valore della query è incluso tra i valori di un elemento dell'array
+        // ritorna true e l'obj viene pushato nell'array filtrato
         let isIncludedSome = queryValues.some((val) => {
             return dataTargetArr.includes(val);
         });
@@ -95,7 +110,7 @@ function convertElementsToStrLCase(arr) {
 
 function convertToSortedArr(element) {
     // converto in un array ordinato il parametro passato
-    // NB: che sia primitivo o un array, il ritorno è cmq un array ordinato
+    // NB: che sia primitivo o un array, il ritorno è cmq un array piatto ordinato
     return [].concat(element).sort();
 }
 
