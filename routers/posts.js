@@ -1,9 +1,3 @@
-/**
-    ### Bonus
-    - Provare a restituire la lista dei post dalla rotta index, in formato json
-    - Provare a restituire un singolo post dalla rotta show, sempre in formato json
- */
-
 // inizialization
 const express = require("express");
 const {index, show, store, update, modify, destroy} = require("../controllers/postsController");

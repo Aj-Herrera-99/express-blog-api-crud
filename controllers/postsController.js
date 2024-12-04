@@ -5,7 +5,9 @@ function index(req, res) {
     const dataFiltered = utils.filterData(req, posts);
     const response = utils.getResponse(dataFiltered);
     console.log(response);
-    response.status == 404 ? res.sendStatus(404) : res.json(response);
+    response.status == 404
+        ? res.status(404).json(response)
+        : res.json(response);
 }
 
 // show
@@ -13,7 +15,9 @@ function show(req, res) {
     const postTarget = utils.getDataById(req.params.id, posts);
     const response = utils.getResponse(postTarget);
     console.log(response);
-    response.status == 404 ? res.sendStatus(404) : res.json(response);
+    response.status == 404
+        ? res.status(404).json(response)
+        : res.json(response);
 }
 
 // store
@@ -41,7 +45,9 @@ function destroy(req, res) {
         //! decommentare solo per vedere che il db di posts si cancella effettivamente
         // utils.overrideDB("data/posts.json", posts, null, 4);
     }
-    response.status == 404 ? res.sendStatus(404) : res.sendStatus(204);
+    response.status == 404
+        ? res.status(404).json(response)
+        : res.sendStatus(204);
 }
 
 module.exports = { index, show, store, update, modify, destroy };
