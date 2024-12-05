@@ -25,11 +25,11 @@ function show(req, res) {
 function store(req, res) {
     console.log(req.body);
     
-    const max = [1, 5, 10, 3, 2, 4, 8].reduce((prev, next) => {
-        return prev < next ? next : prev;
-    });
+    // const max = [1, 5, 10, 3, 2, 4, 8].reduce((prev, next) => {
+    //     return prev < next ? next : prev;
+    // });
 
-    console.log(max);
+    // console.log(max);
     res.send("store operation");
 }
 

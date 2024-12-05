@@ -20,7 +20,8 @@ const postsRouter = require("./routers/posts");
 const usersRouter = require("./routers/users");
 
 // express middlewares
-app.use(express.static("public"));
+app.use(express.static("public"));  // cartella public accessibile
+app.use(express.json());    // body parser in json
 
 // API routes
 app.use("/posts", postsRouter);
