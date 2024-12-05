@@ -1,5 +1,8 @@
 const { writeFile } = require("fs");
-
+/* 
+TODO: separare in sottocartelle le funzioni in base alla logica
+TODO: esempio: getters, setters, filesystem, utils
+*/ 
 function getDataIndexById(idTarget, data) {
     return data?.findIndex((obj) => obj.id == idTarget);
 }
@@ -12,16 +15,16 @@ function getResponse(data) {
     let response = {
         status: 404,
     };
-    if (data) {
-        const status = 200;
-        const myData = [].concat(data);
-        const totalCount = myData.length;
-        response = {
-            status: status,
-            totalCount: totalCount,
-            data: myData,
-        };
-    }
+    if (!data) return response;
+    if (!data.length) return response;
+    const status = 200;
+    const myData = [].concat(data);
+    const totalCount = myData.length;
+    response = {
+        status: status,
+        totalCount: totalCount,
+        data: myData,
+    };
     return response;
 }
 
@@ -39,7 +42,7 @@ function overrideDB(pathDB, data, replacer, space) {
     );
 }
 
-function filterData(req, list) {
+function getDataByQuery(req, list) {
     const query = req.query;
     const keyTarget = Object.keys(query)[0];
     // lista non definita oppure lista vuota
@@ -123,5 +126,5 @@ module.exports = {
     getDataById,
     getResponse,
     overrideDB,
-    filterData,
+    getDataByQuery,
 };

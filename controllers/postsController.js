@@ -3,7 +3,7 @@ const utils = require("../utils/utils");
 
 // index
 function index(req, res) {
-    const dataFiltered = utils.filterData(req, posts);
+    const dataFiltered = utils.getDataByQuery(req, posts);
     const response = utils.getResponse(dataFiltered);
     console.log(response);
     response.status == 404

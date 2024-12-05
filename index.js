@@ -17,12 +17,14 @@ const HOST = `http://localhost:${PORT}` //process.env.HOST;
 
 // routers
 const postsRouter = require("./routers/posts");
+const usersRouter = require("./routers/users");
 
 // static assets
 app.use(express.static("public"));
 
 // API routes
 app.use("/posts", postsRouter);
+app.use("/users", usersRouter);
 
 // fallback
 app.all("*", (req,res) => {
