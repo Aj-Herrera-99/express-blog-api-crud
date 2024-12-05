@@ -5,9 +5,10 @@ function response(data) {
         status: 404,
     };
     if (!data) return response;
-    if (!Object.keys(data).length) return response;
+    data = [].concat(data);
+    if (!data.length) return response;
     const status = 200;
-    const myData = [].concat(data);
+    const myData = [...data];
     const totalCount = myData.length;
     response = {
         status: status,
