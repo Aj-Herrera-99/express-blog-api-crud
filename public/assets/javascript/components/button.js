@@ -1,36 +1,4 @@
 import * as dom from "../config/domElements.js";
-import * as card from "./card.js";
-import * as api from "./api.js";
-import { getRndInteger as random } from "../utilities/utilities.js";
-import * as glob from "../config/globals.js";
-
-export async function addNewNote() {
-    // TODO: OBSOLETO -> Le new note non dovrebbero essere prese dal db
-    // TODO: ma prese dall'esterno, caricate sul client e poi mandate al server
-    let myData = await api.getData(
-        glob._URL + glob._RESOURCE,
-        {
-            id: random(1, 5).toString(),
-        },
-        glob.dataSaved
-    );
-    // storing in db
-    delete myData[0].id;
-    axios
-        .post(glob._URL + glob._RESOURCE, myData[0])
-        .then((res) => {
-            console.log(res.data);
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-
-    let template = await myData.map((data) => card.buildNoteFrom({ ...data }));
-    dom.$notesWrapper.insertAdjacentHTML("beforeend", template.join(""));
-    if (dom.$notesWrapper.childElementCount) {
-        dom.$notesWrapper.lastElementChild.scrollIntoView();
-    }
-}
 
 export function remModeAnim(makeRemMode) {
     if (makeRemMode) {

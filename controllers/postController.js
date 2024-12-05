@@ -1,5 +1,12 @@
 const posts = require("../data/post.json"); // automatic parsing
 const get = require("../utils/getters");
+const postTemplate = {
+    id: NaN,
+    titolo: "",
+    contenuto: "",
+    immagine: "",
+    tags: [],
+};
 
 // index
 function index(req, res) {
@@ -26,12 +33,13 @@ function store(req, res) {
     // se per qualche motivo la body req è vuota oppure
     // l'oggetto non ha tutte le proprieta di un oggetto post (escluso id)
     // manda non accettabile
-    if (Object.keys(req.body).length != Object.keys(posts[0]).length - 1) {
+    if (Object.keys(req.body).length != Object.keys(postTemplate).length - 1) {
         res.status(406).json({ message: "Not Acceptable" });
         return;
     }
     // prendo il max id corrente dei post e aumento di uno
-    const indexNewPost = get.currMaxId(posts) + 1;
+    let indexNewPost = get.currMaxId(posts) + 1;
+    if (isNaN(indexNewPost)) indexNewPost = 1;
     // assegno ad un nuovo oggetto l'index aumentato
     let newPost = {
         id: indexNewPost,

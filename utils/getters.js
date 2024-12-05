@@ -100,8 +100,9 @@ function dataByQuery(req, list) {
 }
 
 function currMaxId(data) {
-    const objsId = data.map((obj) => obj.id);
-    return objsId.reduce((prev, next) => {
+    const objsId = data?.map((obj) => obj.id);
+    if(!objsId || !objsId.length) return;
+    return objsId?.reduce((prev, next) => {
         return prev < next ? next : prev;
     });
 }

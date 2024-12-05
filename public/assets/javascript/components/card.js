@@ -9,6 +9,29 @@ export function buildNoteFrom({ id, titolo, immagine }) {
                 </figure>   `;
 }
 
+export function addNewNote(newData) {
+    axios
+        .post(glob._URL + glob._RESOURCE, newData)
+        .then((res) => {
+            return res.data.data;
+        })
+        .then((data) => {
+            data.forEach((data) => glob.dataSaved.push(data));
+            console.log(glob.dataSaved);
+            let template = data.map((data) => buildNoteFrom({ ...data }));
+            dom.$notesWrapper.insertAdjacentHTML(
+                "beforeend",
+                template.join("")
+            );
+            if (dom.$notesWrapper.childElementCount) {
+                dom.$notesWrapper.lastElementChild.scrollIntoView();
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
 export function focusNote(target) {
     document.body.classList.toggle(dom.layover);
     target.classList.toggle(dom.modal);
@@ -20,11 +43,6 @@ export function focusNote(target) {
 export function removeNote(target) {
     const indexElRemove = glob.dataSaved.findIndex((el) => el.id == target.id);
     if (indexElRemove !== -1) {
-        console.log("test");
-        console.log(target.id);
-        // ! ATTENZIONE: il funzionamento qui è corretto
-        // ! ma aggiungerne altri dopo averli rimossi dara qualche errore
-        // ! perche addNewNote() di button è obsoleto
         axios
             .delete(glob._URL + glob._RESOURCE + `/${target.id}`)
             .then((res) => {

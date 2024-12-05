@@ -59,6 +59,10 @@ main {
     padding: 80px;
 }
 
+.notes-wrapper {
+    width: 100%;
+}
+
 .note {
     background: #ffffff;
     /* 20px = 10px + 10px di .note margin */

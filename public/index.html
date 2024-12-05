@@ -14,10 +14,7 @@
         />
         <script src="https://cdn.jsdelivr.net/npm/axios@latest/dist/axios.min.js"></script>
         <script type="module" src="./assets/javascript/app/index.js"></script>
-        <script
-            src="./assets/javascript/app/mediaquery.js"
-            defer
-        ></script>
+        <script src="./assets/javascript/app/mediaquery.js" defer></script>
         <link rel="stylesheet" href="./assets/css/utilities.css" />
         <link rel="stylesheet" href="./assets/css/style.css" />
         <link rel="stylesheet" href="./assets/css/loader.css" />
@@ -39,7 +36,9 @@
                 <!-- ADD NOTE BUTTON -->
                 <button id="add-btn">Aggiungi una polaroid!</button>
                 <!-- ESCAPE REMOVE MODE BUTTON -->
-                <button id="escape-remove-btn" class="d-none">Ho finito!</button>
+                <button id="escape-remove-btn" class="d-none">
+                    Ho finito!
+                </button>
                 <!-- REMOVE NOTE BUTTON -->
                 <button id="remove-btn">Rimuovi una polaroid!</button>
             </div>
@@ -50,5 +49,17 @@
         </button>
         <!-- LOADER -->
         <div class="loader active"></div>
+        <!-- MODAL WINDOW FORM ADD NOTE -->
+        <form id="add-form" class="d-none">
+            <label for="titolo">Titolo</label>
+            <input id="titolo" name="titolo" type="text" />
+            <label for="contenuto">Contenuto</label>
+            <input id="contenuto" name="contenuto" type="text" />
+            <label for="immagine">Immagine</label>
+            <input id="immagine" name="immagine" type="text" />
+            <label for="tags">Tags</label>
+            <input id="tags" name="tags" type="text" />
+            <input type="submit" value="Conferma" />
+        </form>
     </body>
 </html>

@@ -12,8 +12,8 @@
 // inizialization
 const express = require("express");
 const app = express();
-const PORT = 3000 //process.env.PORT;
-const HOST = `http://localhost:${PORT}` //process.env.HOST;
+const PORT = process.env.PORT || 3000; //;
+const HOST = process.env.HOST || `http://localhost:${PORT}`; //;
 
 // routers
 const postsRouter = require("./routers/posts");

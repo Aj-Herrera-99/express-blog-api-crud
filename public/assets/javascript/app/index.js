@@ -4,6 +4,7 @@ import * as api from "../components/api.js";
 import * as card from "../components/card.js";
 import * as btn from "../components/button.js";
 import * as utils from "../utilities/utilities.js";
+// import form from "../components/addForm.js";
 
 // modalita remove, default false
 let remMode = false;
@@ -44,7 +45,10 @@ dom.$main.addEventListener("click", function (e) {
     if (e.target.id === dom.addBtnId) {
         console.log("add btn");
         // aggiungi note
-        btn.addNewNote();
+        // btn.addNewNote();
+        const addForm = document.getElementById("add-form");
+        addForm.classList.remove("d-none");
+        addForm.scrollIntoView();
     }
     // se target è remove btn fai questo
     if (e.target.id === dom.removeBtnId) {
@@ -61,6 +65,28 @@ dom.$main.addEventListener("click", function (e) {
         btn.remModeAnim(remMode);
     }
     return;
+});
+
+// add note form
+const addForm = document.getElementById("add-form");
+console.log(addForm);
+addForm.addEventListener("submit", function (e) {
+    console.log("submit");
+    e.preventDefault();
+
+    const titolo = document.getElementById("titolo").value;
+    const contenuto = document.getElementById("contenuto").value;
+    const immagine = document.getElementById("immagine").value;
+    const tags = document.getElementById("tags").value;
+    const newData = {
+        titolo,
+        contenuto,
+        immagine,
+        tags,
+    };
+    console.log(newData);
+    card.addNewNote(newData);
+    this.classList.add("d-none");
 });
 
 // popup modal click event
