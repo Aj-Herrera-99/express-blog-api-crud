@@ -2,30 +2,18 @@ const { writeFile } = require("fs");
 /* 
 TODO: separare in sottocartelle le funzioni in base alla logica
 TODO: esempio: getters, setters, filesystem, utils
-*/ 
-function getDataIndexById(idTarget, data) {
-    return data?.findIndex((obj) => obj.id == idTarget);
-}
+*/
 
-function getDataById(idTarget, data) {
-    return data?.find((obj) => obj.id == idTarget);
-}
-
-function getResponse(data) {
-    let response = {
-        status: 404,
-    };
-    if (!data) return response;
-    if (!Object.keys(data).length) return response;
-    const status = 200;
-    const myData = [].concat(data);
-    const totalCount = myData.length;
-    response = {
-        status: status,
-        totalCount: totalCount,
-        data: myData,
-    };
-    return response;
+function compareStrings(str1, str2) {
+    let x = str1.toLowerCase();
+    let y = str2.toLowerCase();
+    if (x < y) {
+        return -1;
+    }
+    if (x > y) {
+        return 1;
+    }
+    return 0;
 }
 
 function overrideDB(pathDB, data, replacer, space) {
@@ -41,52 +29,6 @@ function overrideDB(pathDB, data, replacer, space) {
         }
     );
 }
-
-function getDataByQuery(req, list) {
-    const query = req.query;
-    const keyTarget = Object.keys(query)[0];
-    // lista non definita oppure lista vuota
-    if (!list || !list.length) {
-        return null;
-    }
-    // query string vuota
-    if (!Object.keys(query).length) {
-        return list;
-    }
-    // param query string non valida
-    if (!Object.keys(list[0]).includes(keyTarget)) {
-        return null;
-    }
-    // key param query string = id
-    if (keyTarget === "id") {
-        const objTarget = getDataById(query[keyTarget], list);
-        return objTarget;
-    }
-    // da qui in poi -> key param query string != id MA valida
-    // array ordinato dei valori del primo param di query string
-    let queryValuesArr = convertToSortedArr(query[keyTarget]);
-    // elementi array convertiti in stringhe lowercase
-    queryValuesArr = convertElementsToStrLCase(queryValuesArr);
-    // inizializzazione dati filtrati (default zero)
-    let arrFiltered = [];
-    // filtraggio "pesante"
-    if (query["filter"] === "strict") {
-        arrFiltered = filterStrict(keyTarget, queryValuesArr, list);
-    }
-    // filtraggio "leggero"
-    else {
-        arrFiltered = filterLight(keyTarget, queryValuesArr, list);
-    }
-    // se la ricerca ha prodotto zero risultati ritorna null
-    return arrFiltered.length ? arrFiltered : null;
-}
-
-function getCurrMaxId(data){
-    const objsId = data.map(obj => obj.id)
-    return objsId.reduce((prev, next) => {
-        return prev < next ? next : prev;
-    })
-}  
 
 function filterStrict(key, queryValues, data) {
     const arrFiltered = data?.filter((obj) => {
@@ -129,10 +71,10 @@ function convertToSortedArr(element) {
 }
 
 module.exports = {
-    getDataIndexById,
-    getDataById,
-    getResponse,
+    compareStrings,
     overrideDB,
-    getDataByQuery,
-    getCurrMaxId
+    filterStrict,
+    filterLight,
+    convertElementsToStrLCase,
+    convertToSortedArr,
 };

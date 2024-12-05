@@ -1,10 +1,10 @@
 const posts = require("../data/post.json"); // automatic parsing
-const utils = require("../utils/utils");
+const get = require("../utils/getters");
 
 // index
 function index(req, res) {
-    const dataFiltered = utils.getDataByQuery(req, posts);
-    const response = utils.getResponse(dataFiltered);
+    const dataFiltered = get.dataByQuery(req, posts);
+    const response = get.response(dataFiltered);
     console.log(response);
     response.status == 404
         ? res.status(404).json(response)
@@ -13,8 +13,8 @@ function index(req, res) {
 
 // show
 function show(req, res) {
-    const postTarget = utils.getDataById(req.params.id, posts);
-    const response = utils.getResponse(postTarget);
+    const postTarget = get.dataById(req.params.id, posts);
+    const response = get.response(postTarget);
     console.log(response);
     response.status == 404
         ? res.status(404).json(response)
@@ -31,7 +31,7 @@ function store(req, res) {
         return;
     }
     // prendo il max id corrente dei post e aumento di uno
-    const indexNewPost = utils.getCurrMaxId(posts) + 1;
+    const indexNewPost = get.currMaxId(posts) + 1;
     // assegno ad un nuovo oggetto l'index aumentato
     let newPost = {
         id: indexNewPost,
@@ -39,7 +39,7 @@ function store(req, res) {
     // spalmo le proprieta gia presenti e le proprieta della body request
     newPost = { ...newPost, ...req.body };
     // preparo la risposta da mandare
-    const response = utils.getResponse(newPost);
+    const response = get.response(newPost);
     // non dovrebbe succedere ma non si sa mai
     if (response.status != 404) {
         posts.push(newPost);
@@ -53,18 +53,18 @@ function store(req, res) {
 
 // update
 function update(req, res) {
-    const postTarget = utils.getDataById(req.params.id, posts);
+    const postTarget = get.dataById(req.params.id, posts);
     // se non è stato trovato il post con l'id dinamico manda 404
     if (!postTarget) {
-        const response = utils.getResponse(null);
+        const response = get.response(null);
         res.status(404).json(response);
         return;
     }
     // aggiorno i valori delle proprietà con i valori della body request
-    for(let key in req.body){
+    for (let key in req.body) {
         postTarget[key] = req.body[key];
     }
-    const response = utils.getResponse(postTarget);
+    const response = get.response(postTarget);
     console.log(posts);
     res.json(response);
 }
@@ -76,8 +76,8 @@ function modify(req, res) {
 
 // destroy
 function destroy(req, res) {
-    const indexTarget = utils.getDataIndexById(req.params.id, posts);
-    const response = utils.getResponse(posts[indexTarget]);
+    const indexTarget = get.dataIndexById(req.params.id, posts);
+    const response = get.response(posts[indexTarget]);
     if (indexTarget !== -1) {
         posts.splice(indexTarget, 1);
         console.log(posts);
