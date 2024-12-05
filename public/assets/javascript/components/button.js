@@ -5,6 +5,8 @@ import { getRndInteger as random } from "../utilities/utilities.js";
 import * as glob from "../config/globals.js";
 
 export async function addNewNote() {
+    // TODO: OBSOLETO -> Le new note non dovrebbero essere prese dal db
+    // TODO: ma prese dall'esterno, caricate sul client e poi mandate al server
     let myData = await api.getData(
         glob._URL + glob._RESOURCE,
         {

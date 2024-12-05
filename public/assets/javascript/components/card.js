@@ -21,7 +21,20 @@ export function removeNote(target) {
     const indexElRemove = glob.dataSaved.findIndex((el) => el.id == target.id);
     if (indexElRemove !== -1) {
         console.log("test");
+        console.log(target.id);
+        // ! ATTENZIONE: il funzionamento qui è corretto
+        // ! ma aggiungerne altri dopo averli rimossi dara qualche errore
+        // ! perche addNewNote() di button è obsoleto
+        axios
+            .delete(glob._URL + glob._RESOURCE + `/${target.id}`)
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
         glob.dataSaved.splice(indexElRemove, 1);
+
     }
     console.log(glob.dataSaved);
     target.remove();
