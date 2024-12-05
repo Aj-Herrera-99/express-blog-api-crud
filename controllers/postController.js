@@ -23,14 +23,32 @@ function show(req, res) {
 
 // store
 function store(req, res) {
-    console.log(req.body);
-    
-    // const max = [1, 5, 10, 3, 2, 4, 8].reduce((prev, next) => {
-    //     return prev < next ? next : prev;
-    // });
-
-    // console.log(max);
-    res.send("store operation");
+    // se per qualche motivo la body req è vuota oppure
+    // l'oggetto non ha tutte le proprieta di un oggetto post (escluso id)
+    // manda non accettabile
+    if (Object.keys(req.body).length != Object.keys(posts[0]).length - 1) {
+        res.status(406).json({ message: "Not Acceptable" });
+        return;
+    }
+    // prendo il max id corrente dei post e aumento di uno
+    const indexNewPost = utils.getCurrMaxId(posts) + 1;
+    // assegno ad un nuovo oggetto l'index aumentato
+    let newPost = {
+        id: indexNewPost,
+    };
+    // spalmo le proprieta gia presenti e le proprieta della body request
+    newPost = { ...newPost, ...req.body };
+    // preparo la risposta da mandare
+    const response = utils.getResponse([newPost]);
+    // non dovrebbe succedere ma non si sa mai
+    if (response.status != 404) {
+        posts.push(newPost);
+        console.log(posts);
+        response.status = 201;
+        res.status(201).json(response);
+        return;
+    }
+    res.status(404).json(response);
 }
 
 // update

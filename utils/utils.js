@@ -81,6 +81,13 @@ function getDataByQuery(req, list) {
     return arrFiltered.length ? arrFiltered : null;
 }
 
+function getCurrMaxId(data){
+    const objsId = data.map(obj => obj.id)
+    return objsId.reduce((prev, next) => {
+        return prev < next ? next : prev;
+    })
+}  
+
 function filterStrict(key, queryValues, data) {
     const arrFiltered = data?.filter((obj) => {
         // per ogni obj dell array di dati, crea un array ordinato dei values della key target
@@ -127,4 +134,5 @@ module.exports = {
     getResponse,
     overrideDB,
     getDataByQuery,
+    getCurrMaxId
 };
