@@ -12,6 +12,17 @@ export async function addNewNote() {
         },
         glob.dataSaved
     );
+    // storing in db
+    delete myData[0].id;
+    axios
+        .post(glob._URL + glob._RESOURCE, myData[0])
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+
     let template = await myData.map((data) => card.buildNoteFrom({ ...data }));
     dom.$notesWrapper.insertAdjacentHTML("beforeend", template.join(""));
     if (dom.$notesWrapper.childElementCount) {
