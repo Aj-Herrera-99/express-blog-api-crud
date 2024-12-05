@@ -17,3 +17,25 @@ export async function getData(completeUrl, params, saving) {
         return [];
     }
 }
+
+export async function postData(newData, completeUrl, saving) {
+    try {
+        const res = await axios.post(completeUrl, newData);
+        const data = await res.data.data;
+        data.forEach((data) => saving.push(data));
+        console.log(saving);
+        return data;
+    } catch (e) {
+        console.error(e);
+        return [];
+    }
+}
+
+export async function deleteData(completeUrl, param) {
+    try {
+        const res = await axios.delete(completeUrl + `/${param}`);
+        console.log(res);
+    } catch (e) {
+        console.error(e);
+    }
+}

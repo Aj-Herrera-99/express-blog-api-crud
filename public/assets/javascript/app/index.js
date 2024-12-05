@@ -67,13 +67,10 @@ dom.$main.addEventListener("click", function (e) {
     return;
 });
 
-// add note form
-const addForm = document.getElementById("add-form");
-console.log(addForm);
-addForm.addEventListener("submit", function (e) {
-    console.log("submit");
+// add note form submit event
+dom.$addForm.addEventListener("submit", function (e) {
+    console.log("add form");
     e.preventDefault();
-
     const titolo = document.getElementById("titolo").value;
     const contenuto = document.getElementById("contenuto").value;
     const immagine = document.getElementById("immagine").value;
@@ -84,9 +81,8 @@ addForm.addEventListener("submit", function (e) {
         immagine,
         tags,
     };
-    console.log(newData);
     card.addNewNote(newData);
-    this.classList.add("d-none");
+    this.classList.add(dom.dNone);
 });
 
 // popup modal click event
