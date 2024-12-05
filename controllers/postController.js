@@ -39,7 +39,7 @@ function store(req, res) {
     // spalmo le proprieta gia presenti e le proprieta della body request
     newPost = { ...newPost, ...req.body };
     // preparo la risposta da mandare
-    const response = utils.getResponse([newPost]);
+    const response = utils.getResponse(newPost);
     // non dovrebbe succedere ma non si sa mai
     if (response.status != 404) {
         posts.push(newPost);
@@ -53,7 +53,20 @@ function store(req, res) {
 
 // update
 function update(req, res) {
-    res.send("update operation -> id selected: " + req.params.id);
+    const postTarget = utils.getDataById(req.params.id, posts);
+    // se non è stato trovato il post con l'id dinamico manda 404
+    if (!postTarget) {
+        const response = utils.getResponse(null);
+        res.status(404).json(response);
+        return;
+    }
+    // aggiorno i valori delle proprietà con i valori della body request
+    for(let key in req.body){
+        postTarget[key] = req.body[key];
+    }
+    const response = utils.getResponse(postTarget);
+    console.log(posts);
+    res.json(response);
 }
 
 // modify

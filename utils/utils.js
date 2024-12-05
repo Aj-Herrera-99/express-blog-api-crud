@@ -16,7 +16,7 @@ function getResponse(data) {
         status: 404,
     };
     if (!data) return response;
-    if (!data.length) return response;
+    if (!Object.keys(data).length) return response;
     const status = 200;
     const myData = [].concat(data);
     const totalCount = myData.length;
