@@ -1,4 +1,4 @@
-const users = require("../data/users.json"); // automatic parsing
+const users = require("../data/user.json"); // automatic parsing
 const utils = require("../utils/utils");
 
 function index(req, res) {

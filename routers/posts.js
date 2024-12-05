@@ -1,6 +1,6 @@
 // inizialization
 const express = require("express");
-const {index, show, store, update, modify, destroy} = require("../controllers/postsController");
+const {index, show, store, update, modify, destroy} = require("../controllers/postController");
 const router = express.Router();
 
 // routes

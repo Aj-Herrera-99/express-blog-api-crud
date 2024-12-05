@@ -6,7 +6,7 @@ const {
     update,
     modify,
     destroy,
-} = require("../controllers/usersController");
+} = require("../controllers/userController");
 const router = express.Router();
 
 // index

@@ -19,7 +19,7 @@ const HOST = `http://localhost:${PORT}` //process.env.HOST;
 const postsRouter = require("./routers/posts");
 const usersRouter = require("./routers/users");
 
-// static assets
+// express middlewares
 app.use(express.static("public"));
 
 // API routes
