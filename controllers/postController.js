@@ -10,12 +10,14 @@ const postTemplate = {
 
 // index
 function index(req, res) {
+    // ? solo testing
+    // while (posts.length) {
+    //     posts.pop(posts[posts.length - 1]);
+    // }
     const dataFiltered = get.dataByQuery(req, posts);
     const response = get.response(dataFiltered);
     console.log(response);
-    response.status == 404
-        ? res.status(404).json(response)
-        : res.json(response);
+    res.status(response.status).json(response);
 }
 
 // show
@@ -23,13 +25,12 @@ function show(req, res) {
     const postTarget = get.dataById(req.params.id, posts);
     const response = get.response(postTarget);
     console.log(response);
-    response.status == 404
-        ? res.status(404).json(response)
-        : res.json(response);
+    res.status(response.status).json(response);
 }
 
 // store
 function store(req, res) {
+    // ! controllo obsoleto
     // se per qualche motivo la body req è vuota oppure
     // l'oggetto non ha tutte le proprieta di un oggetto post (escluso id)
     // manda non accettabile
@@ -40,12 +41,8 @@ function store(req, res) {
     // prendo il max id corrente dei post e aumento di uno
     let indexNewPost = get.currMaxId(posts) + 1;
     if (isNaN(indexNewPost)) indexNewPost = 1;
-    // assegno ad un nuovo oggetto l'index aumentato
-    let newPost = {
-        id: indexNewPost,
-    };
-    // spalmo le proprieta gia presenti e le proprieta della body request
-    newPost = { ...newPost, ...req.body };
+    // spalmo la prop di id e le proprieta della body request
+    const newPost = { id: indexNewPost, ...req.body };
     // preparo la risposta da mandare
     const response = get.response(newPost);
     // non dovrebbe succedere ma non si sa mai
@@ -68,6 +65,7 @@ function update(req, res) {
         res.status(404).json(response);
         return;
     }
+    // TODO: usare Object.assign
     // aggiorno i valori delle proprietà con i valori della body request
     for (let key in req.body) {
         postTarget[key] = req.body[key];
@@ -89,12 +87,12 @@ function destroy(req, res) {
     if (indexTarget !== -1) {
         posts.splice(indexTarget, 1);
         console.log(posts);
-        //! decommentare solo per vedere che il db di posts si cancella effettivamente
+        res.sendStatus(204);
+        return;
+        //! decommentare e portare sopra return solo per vedere che il db di posts si cancella effettivamente
         // utils.overrideDB("data/post.json", posts, null, 4);
     }
-    response.status == 404
-        ? res.status(404).json(response)
-        : res.sendStatus(204);
+    res.status(404).json(response);
 }
 
 module.exports = { index, show, store, update, modify, destroy };
