@@ -7,7 +7,8 @@ const HOST = `http://localhost:${PORT}`;
 // imports
 const postsRouter = require("./routers/posts");
 const usersRouter = require("./routers/users");
-const {notFound} = require("./middlewares/notFound");
+const {notFoundHandler} = require("./middlewares/notFoundHandler");
+const { errorHandler } = require("./middlewares/errorHandler");
 
 // express middlewares
 app.use(express.static("public")); // cartella public accessibile
@@ -18,7 +19,8 @@ app.use("/posts", postsRouter);
 app.use("/users", usersRouter);
 
 // fallback
-app.use(notFound);
+app.use(notFoundHandler);
+app.use(errorHandler)
 
 // server opening
 app.listen(PORT, () => {
