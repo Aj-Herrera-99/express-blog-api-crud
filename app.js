@@ -4,9 +4,10 @@ const app = express();
 const PORT = process.env.PORT || 3000; 
 const HOST = `http://localhost:${PORT}`; 
 
-// routers
+// imports
 const postsRouter = require("./routers/posts");
 const usersRouter = require("./routers/users");
+const {notFound} = require("./middlewares/notFound");
 
 // express middlewares
 app.use(express.static("public")); // cartella public accessibile
@@ -17,9 +18,7 @@ app.use("/posts", postsRouter);
 app.use("/users", usersRouter);
 
 // fallback
-app.all("*", (req, res) => {
-    res.send(`<h1>404 Not Found</h1>`);
-});
+app.use(notFound);
 
 // server opening
 app.listen(PORT, () => {
