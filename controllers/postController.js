@@ -14,7 +14,7 @@ function index(req, res) {
     // while (posts.length) {
     //     posts.pop(posts[posts.length - 1]);
     // }
-    const dataFiltered = get.dataByQuery(req, posts);
+    const dataFiltered = get.dataByQuery(req.query, posts);
     const response = get.response(dataFiltered);
     console.log(response);
     res.status(response.status).json(response);
@@ -22,6 +22,7 @@ function index(req, res) {
 
 // show
 function show(req, res) {
+    // post.title
     const postTarget = get.dataById(req.params.id, posts);
     const response = get.response(postTarget);
     console.log(response);

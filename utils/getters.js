@@ -61,15 +61,14 @@ function usersByName(name, users) {
     return usersNameSorted;
 }
 
-function dataByQuery(req, list) {
-    const query = req.query;
-    const keyTarget = Object.keys(query)[0];
+function dataByQuery(queryObj, list) {
+    const keyTarget = Object.keys(queryObj)[0];
     // lista non definita oppure lista vuota
     if (!list || !list.length) {
         return null;
     }
     // query string vuota
-    if (!Object.keys(query).length) {
+    if (!Object.keys(queryObj).length) {
         return list;
     }
     // param query string non valida
@@ -78,18 +77,18 @@ function dataByQuery(req, list) {
     }
     // key param query string = id
     if (keyTarget === "id") {
-        const objTarget = dataById(query[keyTarget], list);
+        const objTarget = dataById(queryObj[keyTarget], list);
         return objTarget;
     }
     // da qui in poi -> key param query string != id MA valida
     // array ordinato dei valori del primo param di query string
-    let queryValuesArr = utils.convertToSortedArr(query[keyTarget]);
+    let queryValuesArr = utils.convertToSortedArr(queryObj[keyTarget]);
     // elementi array convertiti in stringhe lowercase
     queryValuesArr = utils.convertElementsToStrLCase(queryValuesArr);
     // inizializzazione dati filtrati (default zero)
     let arrFiltered = [];
     // filtraggio "pesante"
-    if (query["filter"] === "strict") {
+    if (queryObj["filter"] === "strict") {
         arrFiltered = utils.filterStrict(keyTarget, queryValuesArr, list);
     }
     // filtraggio "leggero"

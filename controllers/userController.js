@@ -2,7 +2,7 @@ const users = require("../data/user.json"); // automatic parsing
 const get = require("../utils/getters");
 
 function index(req, res) {
-    const dataFiltered = get.dataByQuery(req, users);
+    const dataFiltered = get.dataByQuery(req.query, users);
     const response = get.response(dataFiltered);
     console.log(response);
     response.status == 404
