@@ -71,18 +71,38 @@ dom.$main.addEventListener("click", function (e) {
 dom.$addForm.addEventListener("submit", function (e) {
     console.log("add form");
     e.preventDefault();
-    const titolo = document.getElementById("titolo").value;
-    const contenuto = document.getElementById("contenuto").value;
-    const immagine = document.getElementById("immagine").value;
-    const tags = document.getElementById("tags").value;
-    const newData = {
-        titolo,
-        contenuto,
-        immagine,
-        tags,
-    };
-    card.addNewNote(newData);
+    uploadFiles();
     this.classList.add(dom.dNone);
+
+    function uploadFiles() {
+        const url = "http://localhost:3000/api";
+        const formData = new FormData(dom.$addForm);
+        const fetchOptions = {
+            method: "post",
+            body: formData, //automatic encoding to enctype="multipart/form-data"
+        };
+        // upload dell'immagine ../api come path
+        fetch(url, fetchOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                // la risposta è un json contenente la path dell'immagine uploadata sul server
+                const immagine = data.path;
+                const titolo = document.getElementById("titolo").value;
+                const contenuto = document.getElementById("contenuto").value;
+                const tags = document.getElementById("tags").value;
+                const newData = {
+                    titolo,
+                    contenuto,
+                    immagine,
+                    tags,
+                };
+                card.addNewNote(newData);
+                document.getElementById("immagine").value = "";
+                document.getElementById("titolo").value = "";
+                document.getElementById("contenuto").value = "";
+                document.getElementById("tags").value = "";
+            });
+    }
 });
 
 // popup modal click event
